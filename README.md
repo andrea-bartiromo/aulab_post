@@ -1,67 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Aulab Post
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aulab Post è una piattaforma web sviluppata in **Laravel** come progetto finale del percorso Hackademy/Aulab.  
+L'applicazione simula un portale editoriale con gestione degli articoli, autenticazione utenti, ruoli autorizzativi e dashboard dedicate.
 
-## About Laravel
+## Obiettivo del progetto
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Il progetto nasce per mettere in pratica le competenze acquisite nello sviluppo full stack con Laravel, creando un'applicazione completa con:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- autenticazione e registrazione utenti;
+- gestione articoli;
+- sistema di revisione dei contenuti;
+- ruoli multipli;
+- dashboard amministrative;
+- candidature tramite sezione "Lavora con noi";
+- gestione permessi tramite middleware.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Funzionalità principali
 
-## Learning Laravel
+### Utenti e autenticazione
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Registrazione e login tramite Laravel Fortify.
+- Logout protetto per utenti autenticati.
+- Accesso differenziato in base al ruolo.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Gestione articoli
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Creazione di nuovi articoli da parte degli utenti autenticati.
+- Visualizzazione pubblica degli articoli.
+- Dettaglio articolo.
+- Filtri per categoria e autore.
+- Modifica ed eliminazione degli articoli da parte degli utenti autorizzati.
 
-## Laravel Sponsors
+### Sistema di revisione
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Dashboard dedicata al revisore.
+- Possibilità di accettare o rifiutare gli articoli.
+- Separazione tra contenuti pubblicati e contenuti in attesa di revisione.
 
-### Premium Partners
+### Area amministratore
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Dashboard admin.
+- Assegnazione e rimozione ruoli.
+- Gestione utenti.
+- Gestione candidature ricevute dalla sezione "Lavora con noi".
 
-## Contributing
+### Area owner
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Dashboard dedicata al proprietario.
+- Visualizzazione delle candidature.
+- Accettazione o rifiuto delle candidature.
 
-## Code of Conduct
+### Sezione Lavora con noi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Form pubblico per l'invio di candidature.
+- Gestione delle candidature da pannello admin/owner.
 
-## Security Vulnerabilities
+## Tecnologie utilizzate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **PHP 8.2+**
+- **Laravel 11**
+- **Laravel Fortify**
+- **MySQL**
+- **Blade**
+- **Vite**
+- **Tailwind CSS**
+- **JavaScript**
+- **Composer**
+- **NPM**
 
-## License
+## Struttura tecnica
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# aulab_post
+Il progetto segue l'architettura MVC tipica di Laravel:
+
+- `app/Http/Controllers` contiene i controller principali dell'applicazione.
+- `app/Http/Middleware` gestisce i controlli sui ruoli utente.
+- `app/Models` contiene i model principali: utenti, articoli, categorie e candidature.
+- `database/migrations` contiene la struttura del database.
+- `resources/views` contiene le viste Blade.
+- `routes/web.php` definisce le rotte pubbliche, protette e divise per ruolo.
+
+## Ruoli gestiti
+
+L'applicazione prevede più livelli di autorizzazione:
+
+- **Admin**: gestione utenti, ruoli e candidature.
+- **Revisor**: revisione e moderazione articoli.
+- **Writer**: creazione, modifica ed eliminazione dei propri articoli.
+- **Owner**: gestione avanzata delle candidature.
+- **Utente registrato**: accesso alle funzionalità base e candidatura.
+
+## Installazione locale
+
+Clonare il repository:
+
+```bash
+git clone https://github.com/andrea-bartiromo/aulab_post.git
+cd aulab_post
+```
+
+Installare le dipendenze PHP:
+
+```bash
+composer install
+```
+
+Installare le dipendenze frontend:
+
+```bash
+npm install
+```
+
+Creare il file `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Generare la chiave applicativa:
+
+```bash
+php artisan key:generate
+```
+
+Configurare il database nel file `.env`, poi eseguire le migrazioni:
+
+```bash
+php artisan migrate
+```
+
+Avviare il server Laravel:
+
+```bash
+php artisan serve
+```
+
+In un secondo terminale avviare Vite:
+
+```bash
+npm run dev
+```
+
+## Note sul database
+
+Il progetto utilizza MySQL. Prima di avviare l'applicazione è necessario creare un database locale e configurare correttamente queste variabili nel file `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_database
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## Stato del progetto
+
+Il progetto è funzionante in ambiente locale ed è stato sviluppato a scopo formativo come progetto finale del percorso Hackademy/Aulab.
+
+## Miglioramenti futuri
+
+- Aggiungere screenshot dell'applicazione.
+- Migliorare la UI delle dashboard.
+- Aggiungere test automatici.
+- Aggiungere seeders dimostrativi per utenti e ruoli.
+- Documentare le credenziali demo in ambiente locale.
+
+## Autore
+
+**Andrea Bartiromo**  
+GitHub: [andrea-bartiromo](https://github.com/andrea-bartiromo)
