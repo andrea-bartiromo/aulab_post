@@ -1,93 +1,142 @@
 # Aulab Post
 
-Aulab Post è una piattaforma web sviluppata in **Laravel** come progetto finale del percorso Hackademy/Aulab.  
-L'applicazione simula un portale editoriale con gestione degli articoli, autenticazione utenti, ruoli autorizzativi e dashboard dedicate.
+![Laravel](https://img.shields.io/badge/Laravel-11-red)
+![PHP](https://img.shields.io/badge/PHP-8.2%2B-blue)
+![MySQL](https://img.shields.io/badge/Database-MySQL-orange)
+![Blade](https://img.shields.io/badge/Template-Blade-purple)
+![Vite](https://img.shields.io/badge/Build-Vite-646CFF)
+![Tailwind CSS](https://img.shields.io/badge/CSS-Tailwind-38B2AC)
+
+**Aulab Post** è una piattaforma web editoriale sviluppata in **Laravel** come progetto finale del percorso Hackademy/Aulab.
+
+L'applicazione simula un portale di pubblicazione articoli con autenticazione, ruoli autorizzativi, dashboard dedicate, sistema di revisione dei contenuti e gestione candidature.
+
+---
+
+## Screenshot
+
+### Homepage
+
+![Homepage](docs/images/home.jpg)
+
+### Login
+
+![Login](docs/images/login.jpg)
+
+### Creazione articolo
+
+![Creazione articolo](docs/images/creazione-articolo.jpg)
+
+### Dashboard amministratore
+
+![Dashboard amministratore](docs/images/dashboard-admin.jpg)
+
+### Dashboard revisore
+
+![Dashboard revisore](docs/images/dashboard-revisore.jpg)
+
+### Dettaglio articolo
+
+![Dettaglio articolo](docs/images/dettaglio-articolo.jpg)
+
+---
+
+## Highlights
+
+- Autenticazione utenti tramite Laravel Fortify.
+- Gestione articoli con creazione, dettaglio, modifica ed eliminazione.
+- Sistema di revisione con accettazione o rifiuto dei contenuti.
+- Dashboard amministratore per utenti, ruoli e candidature.
+- Dashboard revisore per moderazione articoli.
+- Ruoli multipli: Admin, Revisor, Writer, Owner e utente registrato.
+- Middleware dedicati per proteggere le aree riservate.
+- Sezione “Lavora con noi” con gestione candidature.
+
+---
 
 ## Obiettivo del progetto
 
-Il progetto nasce per mettere in pratica le competenze acquisite nello sviluppo full stack con Laravel, creando un'applicazione completa con:
+Il progetto nasce per mettere in pratica le competenze acquisite nello sviluppo full stack con Laravel, realizzando un'applicazione completa e strutturata secondo il pattern MVC.
 
-- autenticazione e registrazione utenti;
-- gestione articoli;
-- sistema di revisione dei contenuti;
-- ruoli multipli;
-- dashboard amministrative;
-- candidature tramite sezione "Lavora con noi";
-- gestione permessi tramite middleware.
+Aulab Post non è solo un esercizio CRUD: include un flusso editoriale con utenti, ruoli, revisione contenuti e pannelli di gestione differenziati.
 
-## Funzionalità principali
+---
 
-### Utenti e autenticazione
+## Workflow articoli
 
-- Registrazione e login tramite Laravel Fortify.
-- Logout protetto per utenti autenticati.
-- Accesso differenziato in base al ruolo.
+```text
+Writer crea articolo
+        ↓
+Articolo in attesa di revisione
+        ↓
+Revisor accetta o rifiuta
+        ↓
+Articolo pubblicato oppure respinto
+```
 
-### Gestione articoli
+---
 
-- Creazione di nuovi articoli da parte degli utenti autenticati.
-- Visualizzazione pubblica degli articoli.
-- Dettaglio articolo.
-- Filtri per categoria e autore.
-- Modifica ed eliminazione degli articoli da parte degli utenti autorizzati.
+## Architettura logica
 
-### Sistema di revisione
+```text
+Browser
+  ↓
+Laravel Routes
+  ↓
+Controllers
+  ↓
+Models / Middleware
+  ↓
+Database MySQL
+```
 
-- Dashboard dedicata al revisore.
-- Possibilità di accettare o rifiutare gli articoli.
-- Separazione tra contenuti pubblicati e contenuti in attesa di revisione.
-
-### Area amministratore
-
-- Dashboard admin.
-- Assegnazione e rimozione ruoli.
-- Gestione utenti.
-- Gestione candidature ricevute dalla sezione "Lavora con noi".
-
-### Area owner
-
-- Dashboard dedicata al proprietario.
-- Visualizzazione delle candidature.
-- Accettazione o rifiuto delle candidature.
-
-### Sezione Lavora con noi
-
-- Form pubblico per l'invio di candidature.
-- Gestione delle candidature da pannello admin/owner.
+---
 
 ## Tecnologie utilizzate
 
-- **PHP 8.2+**
-- **Laravel 11**
-- **Laravel Fortify**
-- **MySQL**
-- **Blade**
-- **Vite**
-- **Tailwind CSS**
-- **JavaScript**
-- **Composer**
-- **NPM**
+- PHP 8.2+
+- Laravel 11
+- Laravel Fortify
+- MySQL
+- Blade
+- Vite
+- Tailwind CSS
+- JavaScript
+- Composer
+- NPM
+
+---
 
 ## Struttura tecnica
 
-Il progetto segue l'architettura MVC tipica di Laravel:
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   └── Middleware/
+├── Models/
 
-- `app/Http/Controllers` contiene i controller principali dell'applicazione.
-- `app/Http/Middleware` gestisce i controlli sui ruoli utente.
-- `app/Models` contiene i model principali: utenti, articoli, categorie e candidature.
-- `database/migrations` contiene la struttura del database.
-- `resources/views` contiene le viste Blade.
-- `routes/web.php` definisce le rotte pubbliche, protette e divise per ruolo.
+database/
+├── migrations/
+
+resources/
+├── views/
+
+routes/
+└── web.php
+```
+
+---
 
 ## Ruoli gestiti
-
-L'applicazione prevede più livelli di autorizzazione:
 
 - **Admin**: gestione utenti, ruoli e candidature.
 - **Revisor**: revisione e moderazione articoli.
 - **Writer**: creazione, modifica ed eliminazione dei propri articoli.
 - **Owner**: gestione avanzata delle candidature.
 - **Utente registrato**: accesso alle funzionalità base e candidatura.
+
+---
 
 ## Installazione locale
 
@@ -128,7 +177,7 @@ Configurare il database nel file `.env`, poi eseguire le migrazioni:
 php artisan migrate
 ```
 
-Avviare il server Laravel:
+Avviare Laravel:
 
 ```bash
 php artisan serve
@@ -139,6 +188,8 @@ In un secondo terminale avviare Vite:
 ```bash
 npm run dev
 ```
+
+---
 
 ## Note sul database
 
@@ -153,17 +204,31 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+---
+
+## Documentazione tecnica
+
+È presente anche una documentazione dedicata all'architettura:
+
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
+---
+
 ## Stato del progetto
 
 Il progetto è funzionante in ambiente locale ed è stato sviluppato a scopo formativo come progetto finale del percorso Hackademy/Aulab.
 
+---
+
 ## Miglioramenti futuri
 
-- Aggiungere screenshot dell'applicazione.
 - Migliorare la UI delle dashboard.
 - Aggiungere test automatici.
 - Aggiungere seeders dimostrativi per utenti e ruoli.
-- Documentare le credenziali demo in ambiente locale.
+- Documentare credenziali demo per ambiente locale.
+- Aggiungere deploy dimostrativo.
+
+---
 
 ## Autore
 
