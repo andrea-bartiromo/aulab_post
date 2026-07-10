@@ -16,7 +16,7 @@ class JobApplicationController extends Controller
      */
     public function showForm()
     {
-        return view('job.form');
+        return view('workwithus');
     }
 
     /**

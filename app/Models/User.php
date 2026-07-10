@@ -6,9 +6,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use App\Models\Article;
-use App\Models\JobApplication;
 
 class User extends Authenticatable
 {
@@ -25,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'is_owner',
         'is_revisor',
         'is_writer',
     ];
@@ -50,6 +48,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'is_owner' => 'boolean',
             'is_revisor' => 'boolean',
             'is_writer' => 'boolean',
         ];
@@ -77,6 +76,14 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->is_admin;
+    }
+
+    /**
+     * Verifica se l'utente Ã¨ un owner.
+     */
+    public function isOwner(): bool
+    {
+        return $this->is_owner;
     }
 
     /**

@@ -6,22 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Esegui le migrazioni.
-     */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('slug')->unique()->after('name');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('slug')->unique()->after('title');
         });
     }
 
-    /**
-     * Reverti le migrazioni.
-     */
     public function down(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
+        Schema::table('articles', function (Blueprint $table) {
             $table->dropColumn('slug');
         });
     }

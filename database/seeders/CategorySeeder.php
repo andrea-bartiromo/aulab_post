@@ -11,12 +11,8 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        Category::insert([
-            ['name' => 'Tecnologia'],
-            ['name' => 'Sport'],
-            ['name' => 'Musica'],
-            ['name' => 'Cultura'],
-            ['name' => 'Cucina'],
-        ]);
+        foreach (['Tecnologia', 'Sport', 'Musica', 'Cultura', 'Cucina'] as $name) {
+            Category::firstOrCreate(['name' => $name]);
+        }
     }
 }

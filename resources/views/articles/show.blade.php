@@ -49,14 +49,14 @@
                     @auth
                         @if(Auth::user()->is_revisor && is_null($article->is_accepted))
                             <div class="d-flex justify-content-between">
-                                <form action="{{ route('revisor.accept', $article->id) }}" method="POST">
+                                <form action="{{ route('revisor.acceptArticle', $article->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-check"></i> Accetta Articolo
                                     </button>
                                 </form>
 
-                                <form action="{{ route('revisor.reject', $article->id) }}" method="POST">
+                                <form action="{{ route('revisor.rejectArticle', $article->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fas fa-times"></i> Rifiuta Articolo

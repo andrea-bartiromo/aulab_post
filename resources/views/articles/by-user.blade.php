@@ -8,7 +8,9 @@
         @foreach ($articles as $article)
             <div class="col-md-4">
                 <div class="card">
-                    <img src="{{ asset('storage/' . $article->image) }}" class="card-img-top" alt="{{ $article->title }}">
+                    @if($article->cover_image)
+                        <img src="{{ asset('storage/' . $article->cover_image) }}" class="card-img-top" alt="{{ $article->title }}">
+                    @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $article->title }}</h5>
                         <p class="card-text">{{ Str::limit($article->subtitle, 100) }}</p>
