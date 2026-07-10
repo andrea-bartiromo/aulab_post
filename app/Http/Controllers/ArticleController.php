@@ -94,13 +94,13 @@ class ArticleController extends Controller
             return redirect()->route('articles.index')->with('error', 'Non sei autorizzato a modificare questo articolo.');
         }
 
-        // $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'subtitle' => 'required|string|max:255',
-        //     'body' => 'required|string',
-        //     'cover_image' => 'nullable|image|max:2048',
-        //     'category_id' => 'required|exists:categories,id',
-        // ]);
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'body' => 'required|string',
+            'cover_image' => 'nullable|image|max:2048',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
         if ($request->hasFile('cover_image')) {
             if ($article->cover_image) {
@@ -110,10 +110,10 @@ class ArticleController extends Controller
         }
 
         $article->update([
-            'title' => $request->title,
-            'subtitle' => $request->subtitle,
-            'body' => $request->body,
-            'category_id' => $request->category_id,
+            'title' => $validated['title'],
+            'subtitle' => $validated['subtitle'],
+            'body' => $validated['body'],
+            'category_id' => $validated['category_id'],
         ]);
 
         return redirect()->route('articles.index')->with('success', 'Articolo aggiornato con successo.');
