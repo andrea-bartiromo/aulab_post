@@ -140,6 +140,25 @@ class ArticleWorkflowTest extends TestCase
         ]);
     }
 
+    public function test_different_writer_cannot_edit_another_authors_article(): void
+    {
+        $author = User::factory()->create([
+            'is_writer' => true,
+        ]);
+
+        $otherWriter = User::factory()->create([
+            'is_writer' => true,
+        ]);
+
+        $article = $this->createArticle([
+            'user_id' => $author->id,
+        ]);
+
+        $response = $this->actingAs($otherWriter)->get(route('articles.edit', $article));
+
+        $response->assertRedirect(route('articles.index'));
+    }
+
     public function test_author_can_delete_own_article_and_it_no_longer_exists(): void
     {
         $author = User::factory()->create([
@@ -155,6 +174,29 @@ class ArticleWorkflowTest extends TestCase
         $response->assertRedirect(route('articles.index'));
 
         $this->assertDatabaseMissing('articles', [
+            'id' => $article->id,
+        ]);
+    }
+
+    public function test_different_writer_cannot_delete_another_authors_article(): void
+    {
+        $author = User::factory()->create([
+            'is_writer' => true,
+        ]);
+
+        $otherWriter = User::factory()->create([
+            'is_writer' => true,
+        ]);
+
+        $article = $this->createArticle([
+            'user_id' => $author->id,
+        ]);
+
+        $response = $this->actingAs($otherWriter)->delete(route('articles.destroy', $article));
+
+        $response->assertRedirect(route('articles.index'));
+
+        $this->assertDatabaseHas('articles', [
             'id' => $article->id,
         ]);
     }

@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
@@ -77,7 +78,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        if (Auth::id() !== $article->user_id) {
+        if (Gate::denies('update', $article)) {
             return redirect()->route('articles.index')->with('error', 'Non sei autorizzato a modificare questo articolo.');
         }
 
@@ -90,7 +91,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        if (Auth::id() !== $article->user_id) {
+        if (Gate::denies('update', $article)) {
             return redirect()->route('articles.index')->with('error', 'Non sei autorizzato a modificare questo articolo.');
         }
 
@@ -124,7 +125,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        if (Auth::id() !== $article->user_id) {
+        if (Gate::denies('delete', $article)) {
             return redirect()->route('articles.index')->with('error', 'Non sei autorizzato a eliminare questo articolo.');
         }
 
