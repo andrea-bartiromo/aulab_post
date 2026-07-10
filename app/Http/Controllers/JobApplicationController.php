@@ -32,8 +32,7 @@ class JobApplicationController extends Controller
 
         // Gestione del caricamento del file CV
         if ($request->hasFile('cv') && $request->file('cv')->isValid()) {
-            // Salva il file nella cartella 'cvs' all'interno dello storage pubblico
-            $cvPath = $request->file('cv')->store('cvs', 'public');
+            $cvPath = $request->file('cv')->store('cvs', 'local');
 
             // Salva la candidatura nel database
             $jobApplication = JobApplication::create([
@@ -92,5 +91,26 @@ class JobApplicationController extends Controller
         $application->update(['status' => 'rejected']);
 
         return redirect()->route('admin.jobApplications')->with('error', 'Candidatura rifiutata.');
+    }
+
+    /**
+     * Scarica il CV di una candidatura (solo Admin e Owner).
+     */
+    public function downloadCv(JobApplication $application)
+    {
+        $user = Auth::user();
+
+        if (!$user->is_admin && !$user->is_owner) {
+            abort(403);
+        }
+
+        if (!$application->cv_path || !Storage::disk('local')->exists($application->cv_path)) {
+            abort(404);
+        }
+
+        return Storage::disk('local')->download(
+            $application->cv_path,
+            basename($application->cv_path)
+        );
     }
 }

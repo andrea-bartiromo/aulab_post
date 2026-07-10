@@ -26,7 +26,7 @@
                         <td>{{ $application->user->email }}</td>
                         <td>{{ Str::limit($application->message, 100) }}</td>
                         <td>
-                            <a href="{{ asset('storage/' . $application->cv_path) }}" target="_blank" class="btn btn-primary btn-sm">
+                            <a href="{{ route('jobApplications.cv.download', $application) }}" target="_blank" class="btn btn-primary btn-sm">
                                 <i class="fas fa-file-download"></i> Scarica CV
                             </a>
                         </td>

@@ -31,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/work-with-us', [JobApplicationController::class, 'showForm'])->name('work.with.us');
     Route::get('/lavora-con-noi', [JobApplicationController::class, 'showForm'])->name('job.form');
     Route::post('/lavora-con-noi', [JobApplicationController::class, 'submitApplication'])->name('job.submit');
+    Route::get('/job-applications/{application}/cv', [JobApplicationController::class, 'downloadCv'])->name('jobApplications.cv.download');
 });
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

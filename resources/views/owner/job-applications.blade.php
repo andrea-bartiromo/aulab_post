@@ -35,7 +35,7 @@
                         <td>{{ $application->user->name }}</td>
                         <td>{{ $application->user->email }}</td>
                         <td>{{ Str::limit($application->message, 50) }}</td>
-                        <td><a href="{{ asset('storage/' . $application->cv_path) }}" target="_blank">Visualizza CV</a></td>
+                        <td><a href="{{ route('jobApplications.cv.download', $application) }}" target="_blank">Visualizza CV</a></td>
                         <td>
                             <form action="{{ route('owner.acceptJob', $application->id) }}" method="POST" class="d-inline">
                                 @csrf
