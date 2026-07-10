@@ -140,7 +140,7 @@ routes/
 
 ## Installazione locale
 
-Clonare il repository:
+Clonare il repository e spostarsi nella cartella del progetto:
 
 ```bash
 git clone https://github.com/andrea-bartiromo/aulab_post.git
@@ -159,7 +159,7 @@ Installare le dipendenze frontend:
 npm install
 ```
 
-Creare il file `.env`:
+Creare il file `.env` a partire dall'esempio:
 
 ```bash
 cp .env.example .env
@@ -171,38 +171,72 @@ Generare la chiave applicativa:
 php artisan key:generate
 ```
 
-Configurare il database nel file `.env`, poi eseguire le migrazioni:
-
-```bash
-php artisan migrate
-```
-
-Avviare Laravel:
-
-```bash
-php artisan serve
-```
-
-In un secondo terminale avviare Vite:
-
-```bash
-npm run dev
-```
-
----
-
-## Note sul database
-
-Il progetto utilizza MySQL. Prima di avviare l'applicazione è necessario creare un database locale e configurare correttamente queste variabili nel file `.env`:
+Configurare il database nel file `.env`. Il progetto utilizza MySQL: creare un database locale e impostare le variabili seguenti:
 
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=nome_database
+DB_DATABASE=aulab_post
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+
+Eseguire migrazioni e seeder demo (utenti e categorie):
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Creare il collegamento simbolico per lo storage pubblico:
+
+```bash
+php artisan storage:link
+```
+
+Avviare Vite in un terminale:
+
+```bash
+npm run dev
+```
+
+Avviare il server Laravel in un secondo terminale:
+
+```bash
+php artisan serve
+```
+
+L'applicazione sarà raggiungibile su `http://127.0.0.1:8000`.
+
+---
+
+## Utenti demo
+
+Il comando `php artisan migrate:fresh --seed` crea automaticamente quattro utenti di prova tramite `DemoUserSeeder`, oltre alle categorie iniziali (`CategorySeeder`).
+
+| Ruolo | Email | Password |
+|-------|-------|----------|
+| Admin | admin@aulabpost.test | password |
+| Revisor | revisor@aulabpost.test | password |
+| Writer | writer@aulabpost.test | password |
+| Owner | owner@aulabpost.test | password |
+
+**Attenzione:** queste credenziali sono destinate esclusivamente all'ambiente locale/demo. Non utilizzarle in produzione né riutilizzare la stessa password su ambienti reali.
+
+---
+
+## Verifica installazione
+
+Dopo aver completato i passaggi precedenti, verificare che:
+
+- la **homepage** sia raggiungibile su `http://127.0.0.1:8000`;
+- il **login** funzioni su `/login` con le credenziali demo;
+- l'accesso alle **dashboard** sia coerente con il ruolo dell'utente autenticato:
+  - Admin → `/admin/dashboard`
+  - Revisor → `/revisor/dashboard`
+  - Owner → `/owner/dashboard`
+  - Writer → creazione articoli su `/articles/create`
+- il **database** contenga le categorie demo (Tecnologia, Sport, Musica, Cultura, Cucina) e i quattro utenti elencati sopra.
 
 ---
 
@@ -224,8 +258,6 @@ Il progetto è funzionante in ambiente locale ed è stato sviluppato a scopo for
 
 - Migliorare la UI delle dashboard.
 - Aggiungere test automatici.
-- Aggiungere seeders dimostrativi per utenti e ruoli.
-- Documentare credenziali demo per ambiente locale.
 - Aggiungere deploy dimostrativo.
 
 ---
