@@ -67,6 +67,50 @@ class ArticleWorkflowTest extends TestCase
         $this->get(route('home'))->assertSee('Articolo approvabile');
     }
 
+    public function test_revisor_can_view_a_pending_article(): void
+    {
+        $revisor = User::factory()->create([
+            'is_revisor' => true,
+        ]);
+
+        $article = $this->createArticle([
+            'title' => 'Articolo pending da revisionare',
+            'is_accepted' => null,
+        ]);
+
+        $response = $this->actingAs($revisor)->get(route('articles.show', $article));
+
+        $response->assertOk();
+        $response->assertSee('Articolo pending da revisionare');
+    }
+
+    public function test_pending_article_is_forbidden_for_guests_and_non_revisors(): void
+    {
+        $article = $this->createArticle([
+            'title' => 'Articolo pending riservato',
+            'is_accepted' => null,
+        ]);
+
+        $this->get(route('articles.show', $article))->assertForbidden();
+
+        $user = User::factory()->create();
+
+        $this->actingAs($user)->get(route('articles.show', $article))->assertForbidden();
+    }
+
+    public function test_approved_article_remains_publicly_visible(): void
+    {
+        $article = $this->createArticle([
+            'title' => 'Articolo approvato pubblico',
+            'is_accepted' => true,
+        ]);
+
+        $response = $this->get(route('articles.show', $article));
+
+        $response->assertOk();
+        $response->assertSee('Articolo approvato pubblico');
+    }
+
     public function test_author_can_update_own_article(): void
     {
         $author = User::factory()->create([

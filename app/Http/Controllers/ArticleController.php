@@ -67,9 +67,14 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        if (!$article->is_accepted) {
+        $canViewPendingArticle = is_null($article->is_accepted)
+            && Auth::check()
+            && Auth::user()->is_revisor;
+
+        if (!$article->is_accepted && !$canViewPendingArticle) {
             abort(403, 'Articolo non disponibile.');
         }
+
         return view('articles.show', compact('article'));
     }
 
