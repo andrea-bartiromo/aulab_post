@@ -41,6 +41,10 @@ class AdminController extends Controller
 
     public function deleteUser(User $user)
     {
+        if ($user->is_admin || $user->is_owner || auth()->id() === $user->id) {
+            return redirect()->route('admin.dashboard')->with('error', 'Non puoi eliminare questo utente.');
+        }
+
         $user->delete();
         return redirect()->route('admin.dashboard')->with('success', 'Utente eliminato con successo.');
     }
