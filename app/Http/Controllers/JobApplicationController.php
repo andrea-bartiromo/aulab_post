@@ -71,6 +71,11 @@ class JobApplicationController extends Controller
     public function accept($id)
     {
         $application = JobApplication::findOrFail($id);
+
+        if ($application->status !== 'pending') {
+            return redirect()->route('admin.jobApplications')->with('error', 'Questa candidatura è già stata gestita.');
+        }
+
         $application->update(['status' => 'accepted']);
 
         // Promuove l'utente a Revisore
@@ -88,6 +93,11 @@ class JobApplicationController extends Controller
     public function reject($id)
     {
         $application = JobApplication::findOrFail($id);
+
+        if ($application->status !== 'pending') {
+            return redirect()->route('admin.jobApplications')->with('error', 'Questa candidatura è già stata gestita.');
+        }
+
         $application->update(['status' => 'rejected']);
 
         return redirect()->route('admin.jobApplications')->with('error', 'Candidatura rifiutata.');
